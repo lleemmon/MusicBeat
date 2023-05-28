@@ -1,0 +1,23 @@
+cbeat\notes.cpp \
+		..\musicbeat\topscore.cpp \
+		..\musicbeat\updatagame.cpp
+QMAKE_TARGET  = musicbeat
+DESTDIR        = release\ #avoid trailing-slash linebreak
+TARGET         = musicbeat.exe
+DESTDIR_TARGET = release\musicbeat.exe
+
+####### Build rules
+
+first: all
+all: Makefile.Release  release/musicbeat.exe
+
+release/musicbeat.exe: D:/qt/5.14.2/mingw73_32/lib/libQt5Multimedia.a D:/qt/5.14.2/mingw73_32/lib/libQt5Widgets.a D:/qt/5.14.2/mingw73_32/lib/libQt5Gui.a D:/qt/5.14.2/mingw73_32/lib/libQt5Network.a D:/qt/5.14.2/mingw73_32/lib/libQt5Core.a D:/qt/5.14.2/mingw73_32/lib/libqtmain.a ui_choosemusic.h ui_endgame.h ui_gamecenter.h ui_gamehelp.h ui_mainwindow.h ui_topscore.h ui_updatagame.h $(OBJECTS) 
+	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) @object_script.musicbeat.Release  $(LIBS)
+
+qmake: FORCE
+	@$(QMAKE) -o Makefile.Release ..\musicbeat\musicbeat.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+
+qmake_all: FORCE
+
+dist:
+	$(ZIP) musicbeat.zip $(SOURCES) $(DIST) ..\musicbeat\musicbeat.pro ..\..\qt\5.14.2\mingw73_32\mkspecs\features\spec_pre.prf ..\..\qt\5.14.2\mingw73_32\mkspecs\qdevice.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\features\device_config.prf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\sanitize.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\gcc-base.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\g++-base.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\angle.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\windows-vulkan.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\g++-win32.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\common\windows-desktop.conf ..\..\qt\5.14.2\mingw73_32\mkspecs\qconfig.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3danimation.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dcore.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dextras.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dinput.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dlogic.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquick.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3drender.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_3drender_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_axbase.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_axbase_private.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_axcontainer.pri ..\..\qt\5.14.2\mingw73_32\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\qt\5.14.

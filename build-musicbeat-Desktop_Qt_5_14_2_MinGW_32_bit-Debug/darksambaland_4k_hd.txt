@@ -1,0 +1,148 @@
+  }
+                return null;
+            }
+            /**
+             * Finds closing paren of parameters for the given arrow function.
+             * It is assumed that the given arrow function has parens of parameters and that it has exactly one parameter.
+             * @param {ASTNode} node `ArrowFunctionExpression` node.
+             * @returns {Token} the closing paren of parameters.
+             */
+            function getClosingParenOfParams(node) {
+                return sourceCode.getTokenAfter(node.params[0], astUtils.isClosingParenToken);
+            }
+            /**
+             * Determines whether the given arrow function has comments inside parens of parameters.
+             * It is assumed that the given arrow function has parens of parameters.
+             * @param {ASTNode} node `ArrowFunctionExpression` node.
+             * @param {Token} openingParen Opening paren of parameters.
+             * @returns {boolean} `true` if the function has at least one comment inside of parens of parameters.
+             */
+            function hasCommentsInParensOfParams(node, openingParen) {
+                return sourceCode.commentsExistBetween(openingParen, getClosingParenOfParams(node));
+            }
+            /**
+             * Determines whether the given arrow function has unexpected tokens before opening paren of parameters,
+             * in which case it will be assumed that the existing parens of parameters are necessary.
+             * Only tokens within the range of the arrow function (tokens that are part of the arrow function) are taken into account.
+             * Example: <T>(a) => b
+             * @param {ASTNode} node `ArrowFunctionExpression` node.
+             * @param {Token} openingParen Opening paren of parameters.
+             * @returns {boolean} `true` if the function has at least one unexpected token.
+             */
+            function hasUnexpectedTokensBeforeOpeningParen(node, openingParen) {
+                const expectedCount = node.async ? 1 : 0;
+                return sourceCode.getFirstToken(node, { skip: expectedCount }) !== openingParen;
+            }
+            return {
+                "ArrowFunctionExpression[params.length=1]"(node) {
+                    const shouldHaveParens = !asNeeded || requireForBlockBody && hasBlockBody(node);
+                    const openingParen = findOpeningParenOfParams(node);
+                    const hasParens = openingParen !== null;
+                    const [param] = node.params;
+                    if (shouldHaveParens && !hasParens) {
+                        context.report({
+                            node,
+                            messageId: requireForBlockBody ? "expectedParensBlock" : "expectedParens",
+                            loc: param.loc,
+                            *fix(fixer) {
+                                yield fixer.insertTextBefore(param, "(");
+                                yield fixer.insertTextAfter(param, ")");
+                            }
+                        });
+                    }
+                    if (!shouldHaveParens &&
+                        hasParens &&
+                        param.type === "Identifier" &&
+                        !param.typeAnnotation &&
+                        !node.returnType &&
+                        !hasCommentsInParensOfParams(node, openingParen) &&
+                        !hasUnexpectedTokensBeforeOpeningParen(node, openingParen)) {
+                        context.report({
+                            node,
+                            messageId: requireForBlockBody ? "unexpectedParensInline" : "unexpectedParens",
+                            loc: param.loc,
+                            *fix(fixer) {
+                                const tokenBeforeOpeningParen = sourceCode.getTokenBefore(openingParen);
+                                const closingParen = getClosingParenOfParams(node);
+                                if (tokenBeforeOpeningParen &&
+                                    tokenBeforeOpeningParen.range[1] === openingParen.range[0] &&
+                                    !astUtils.canTokensBeAdjacent(tokenBeforeOpeningParen, sourceCode.getFirstToken(param))) {
+                                    yield fixer.insertTextBefore(openingParen, " ");
+                                }
+                                // remove parens, whitespace inside parens, and possible trailing comma
+                                yield fixer.removeRange([openingParen.range[0], param.range[0]]);
+                                yield fixer.removeRange([param.range[1], closingParen.range[1]]);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+    };
+},
+/* eslint/lib/rules/arrow-spacing.js */ function _(require, module, exports, __esModule, __esExport) {
+    //------------------------------------------------------------------------------
+    // Requirements
+    //------------------------------------------------------------------------------
+    const astUtils = require(358) /* ./utils/ast-utils */;
+    //------------------------------------------------------------------------------
+    // Rule Definition
+    //------------------------------------------------------------------------------
+    module.exports = {
+        meta: {
+            type: "layout",
+            docs: {
+                description: "enforce consistent spacing before and after the arrow in arrow functions",
+                category: "ECMAScript 6",
+                recommended: false,
+                url: "https://eslint.org/docs/rules/arrow-spacing"
+            },
+            fixable: "whitespace",
+            schema: [
+                {
+                    type: "object",
+                    properties: {
+                        before: {
+                            type: "boolean",
+                            default: true
+                        },
+                        after: {
+                            type: "boolean",
+                            default: true
+                        }
+                    },
+                    additionalProperties: false
+                }
+            ],
+            messages: {
+                expectedBefore: "Missing space before =>.",
+                unexpectedBefore: "Unexpected space before =>.",
+                expectedAfter: "Missing space after =>.",
+                unexpectedAfter: "Unexpected space after =>."
+            }
+        },
+        create(context) {
+            // merge rules with default
+            const rule = Object.assign({}, context.options[0]);
+            rule.before = rule.before !== false;
+            rule.after = rule.after !== false;
+            const sourceCode = context.getSourceCode();
+            /**
+             * Get tokens of arrow(`=>`) and before/after arrow.
+             * @param {ASTNode} node The arrow function node.
+             * @returns {Object} Tokens of arrow and before/after arrow.
+             */
+            function getTokens(node) {
+                const arrow = sourceCode.getTokenBefore(node.body, astUtils.isArrowToken);
+                return {
+                    before: sourceCode.getTokenBefore(arrow),
+                    arrow,
+                    after: sourceCode.getTokenAfter(arrow)
+                };
+            }
+            /**
+             * Count spaces before/after arrow(`=>`) token.
+             * @param {Object} tokens Tokens before/after arrow.
+             * @returns {Object} count of space before/after arrow.
+             */
+            function countSpace

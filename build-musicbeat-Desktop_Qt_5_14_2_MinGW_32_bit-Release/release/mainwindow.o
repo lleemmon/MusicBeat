@@ -1,0 +1,228 @@
+gger, it is up to the application
+    # to configure its own logging:
+    logger.addHandler(logging.NullHandler())
+    logger.setLevel(level)
+    return logger
+
+
+# a global logger object used for debugging:
+log = get_logger('olefile')
+
+
+def enable_logging():
+    """
+    Enable logging for this module (disabled by default).
+    This will set the module-specific logger level to NOTSET, which
+    means the main application controls the actual logging level.
+    """
+    log.setLevel(logging.NOTSET)
+
+
+#=== CONSTANTS ===============================================================
+
+#: magic bytes that should be at the beginning of every OLE file:
+MAGIC = b'\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1'
+
+#[PL]: added constants for Sector IDs (from AAF specifications)
+MAXREGSECT = 0xFFFFFFFA #: (-6) maximum SECT
+DIFSECT    = 0xFFFFFFFC #: (-4) denotes a DIFAT sector in a FAT
+FATSECT    = 0xFFFFFFFD #: (-3) denotes a FAT sector in a FAT
+ENDOFCHAIN = 0xFFFFFFFE #: (-2) end of a virtual stream chain
+FREESECT   = 0xFFFFFFFF #: (-1) unallocated sector
+
+#[PL]: added constants for Directory Entry IDs (from AAF specifications)
+MAXREGSID  = 0xFFFFFFFA #: (-6) maximum directory entry ID
+NOSTREAM   = 0xFFFFFFFF #: (-1) unallocated directory entry
+
+#[PL] object types in storage (from AAF specifications)
+STGTY_EMPTY     = 0 #: empty directory entry
+STGTY_STORAGE   = 1 #: element is a storage object
+STGTY_STREAM    = 2 #: element is a stream object
+STGTY_LOCKBYTES = 3 #: element is an ILockBytes object
+STGTY_PROPERTY  = 4 #: element is an IPropertyStorage object
+STGTY_ROOT      = 5 #: element is a root storage
+
+# Unknown size for a stream (used by OleStream):
+UNKNOWN_SIZE = 0x7FFFFFFF
+
+#
+# --------------------------------------------------------------------
+# property types
+
+VT_EMPTY=0; VT_NULL=1; VT_I2=2; VT_I4=3; VT_R4=4; VT_R8=5; VT_CY=6;
+VT_DATE=7; VT_BSTR=8; VT_DISPATCH=9; VT_ERROR=10; VT_BOOL=11;
+VT_VARIANT=12; VT_UNKNOWN=13; VT_DECIMAL=14; VT_I1=16; VT_UI1=17;
+VT_UI2=18; VT_UI4=19; VT_I8=20; VT_UI8=21; VT_INT=22; VT_UINT=23;
+VT_VOID=24; VT_HRESULT=25; VT_PTR=26; VT_SAFEARRAY=27; VT_CARRAY=28;
+VT_USERDEFINED=29; VT_LPSTR=30; VT_LPWSTR=31; VT_FILETIME=64;
+VT_BLOB=65; VT_STREAM=66; VT_STORAGE=67; VT_STREAMED_OBJECT=68;
+VT_STORED_OBJECT=69; VT_BLOB_OBJECT=70; VT_CF=71; VT_CLSID=72;
+VT_VECTOR=0x1000;
+
+# map property id to name (for debugging purposes)
+# VT = {}
+# for keyword, var in list(vars().items()):
+#     if keyword[:3] == "VT_":
+#         VT[var] = keyword
+
+#
+# --------------------------------------------------------------------
+# Some common document types (root.clsid fields)
+
+WORD_CLSID = "00020900-0000-0000-C000-000000000046"
+#TODO: check Excel, PPT, ...
+
+#[PL]: Defect levels to classify parsing errors - see OleFileIO._raise_defect()
+DEFECT_UNSURE =    10    # a case which looks weird, but not sure it's a defect
+DEFECT_POTENTIAL = 20    # a potential defect
+DEFECT_INCORRECT = 30    # an error according to specifications, but parsing
+                         # can go on
+DEFECT_FATAL =     40    # an error which cannot be ignored, parsing is
+                         # impossible
+
+# Minimal size of an empty OLE file, with 512-bytes sectors = 1536 bytes
+# (this is used in isOleFile and OleFile.open)
+MINIMAL_OLEFILE_SIZE = 1536
+
+
+#=== FUNCTIONS ===============================================================
+
+def isOleFile (filename):
+    """
+    Test if a file is an OLE container (according to the magic bytes in its header).
+
+    .. note::
+        This function only checks the first 8 bytes of the file, not the
+        rest of the OLE structure.
+
+    .. versionadded:: 0.16
+
+    :param filename: filename, contents or file-like object of the OLE file (string-like or file-like object)
+
+        - if filename is a string smaller than 1536 bytes, it is the path
+          of the file to open. (bytes or unicode string)
+        - if filename is a string longer than 1535 bytes, it is parsed
+          as the content of an OLE file in memory. (bytes type only)
+        - if filename is a file-like object (with read and seek methods),
+          it is parsed as-is.
+
+    :type filename: bytes or str or unicode or file
+    :returns: True if OLE, False otherwise.
+    :rtype: bool
+    """
+    # check if filename is a string-like or file-like object:
+    if hasattr(filename, 'read'):
+        # file-like object: use it directly
+        header = filename.read(len(MAGIC))
+        # just in case, seek back to start of file:
+        filename.seek(0)
+    elif isinstance(filename, bytes) and len(filename) >= MINIMAL_OLEFILE_SIZE:
+        # filename is a bytes string containing the OLE file to be parsed:
+        header = filename[:len(MAGIC)]
+    else:
+        # string-like object: filename of file on disk
+        with open(filename, 'rb') as fp:
+            header = fp.read(len(MAGIC))
+    if header == MAGIC:
+        return True
+    else:
+        return False
+
+
+if bytes is str:
+    # version for Python 2.x
+    def i8(c):
+        return ord(c)
+else:
+    # version for Python 3.x
+    def i8(c):
+        return c if c.__class__ is int else c[0]
+
+
+def i16(c, o = 0):
+    """
+    Converts a 2-bytes (16 bits) string to an integer.
+
+    :param c: string containing bytes to convert
+    :param o: offset of bytes to convert in string
+    """
+    return struct.unpack("<H", c[o:o+2])[0]
+
+
+def i32(c, o = 0):
+    """
+    Converts a 4-bytes (32 bits) string to an integer.
+
+    :param c: string containing bytes to convert
+    :param o: offset of bytes to convert in string
+    """
+    return struct.unpack("<I", c[o:o+4])[0]
+
+
+def _clsid(clsid):
+    """
+    Converts a CLSID to a human-readable string.
+
+    :param clsid: string of length 16.
+    """
+    assert len(clsid) == 16
+    # if clsid is only made of null bytes, return an empty string:
+    # (PL: why not simply return the string with zeroes?)
+    if not clsid.strip(b"\0"):
+        return ""
+    return (("%08X-%04X-%04X-%02X%02X-" + "%02X" * 6) %
+            ((i32(clsid, 0), i16(clsid, 4), i16(clsid, 6)) +
+            tuple(map(i8, clsid[8:16]))))
+
+
+
+def filetime2datetime(filetime):
+        """
+        convert FILETIME (64 bits int) to Python datetime.datetime
+        """
+        # TODO: manage exception when microseconds is too large
+        # inspired from https://code.activestate.com/recipes/511425-filetime-to-datetime/
+        _FILETIME_null_date = datetime.datetime(1601, 1, 1, 0, 0, 0)
+        #log.debug('timedelta days=%d' % (filetime//(10*1000000*3600*24)))
+        return _FILETIME_null_date + datetime.timedelta(microseconds=filetime//10)
+
+
+
+#=== CLASSES ==================================================================
+
+class OleMetadata:
+    """
+    class to parse and store metadata from standard properties of OLE files.
+
+    Available attributes:
+    codepage, title, subject, author, keywords, comments, template,
+    last_saved_by, revision_number, total_edit_time, last_printed, create_time,
+    last_saved_time, num_pages, num_words, num_chars, thumbnail,
+    creating_application, security, codepage_doc, category, presentation_target,
+    bytes, lines, paragraphs, slides, notes, hidden_slides, mm_clips,
+    scale_crop, heading_pairs, titles_of_parts, manager, company, links_dirty,
+    chars_with_spaces, unused, shared_doc, link_base, hlinks, hlinks_changed,
+    version, dig_sig, content_type, content_status, language, doc_version
+
+    Note: an attribute is set to None when not present in the properties of the
+    OLE file.
+
+    References for SummaryInformation stream:
+
+    - https://msdn.microsoft.com/en-us/library/dd942545.aspx
+    - https://msdn.microsoft.com/en-us/library/dd925819%28v=office.12%29.aspx
+    - https://msdn.microsoft.com/en-us/library/windows/desktop/aa380376%28v=vs.85%29.aspx
+    - https://msdn.microsoft.com/en-us/library/aa372045.aspx
+    - http://sedna-soft.de/articles/summary-information-stream/
+    - https://poi.apache.org/apidocs/org/apache/poi/hpsf/SummaryInformation.html
+
+    References for DocumentSummaryInformation stream:
+
+    - https://msdn.microsoft.com/en-us/library/dd945671%28v=office.12%29.aspx
+    - https://msdn.microsoft.com/en-us/library/windows/desktop/aa380374%28v=vs.85%29.aspx
+    - https://poi.apache.org/api‹Îèİ  ;ÇuH‹ËèE;  ÷C  „   ‹+H‹S+kHBH‰‹C$ÿÈ;ï‰C~D‹Å‹Îè2!  ‹øëWƒÉ ‰Ké?ÿÿÿƒşÿt#ƒşştH‹ÎH‹ÆHç  ƒáHÁøHkÉXHÂëHlÇ  öA t3Ò‹ÎDBè‰9  Hƒøÿ„ïşÿÿH‹KŠD$0ˆë½   HT$0‹ÎD‹Åè·   ‹ø;ı…Åşÿÿ¶D$0H‹\$8H‹l$@H‹t$HHƒÄ _ÃÌÌÌH‰\$H‰|$L‰l$ AVHƒì0L5ÜÑ  ‹ù3ÛI‹Æ;tÿÃHƒÀƒûrñƒûƒÔ  ¹   ès<  ƒø„|  ¹   è`<  …Àuƒ=Æ  „a  ÿü   „š  H=là  A½  L_  H‹ÏI‹Õèø5  …ÀtHƒd$  E3ÉE3À3Ò3ÉèÛßÿÿHMà  A¸  3ÉÆBá   ÿw’  …Àu1Lüœ  H&à  ºû  è§5  …ÀtHƒd$  E3ÉE3À3Ò3ÉèŠßÿÿHüß  è  HÿÀHƒø<vFHçß  èù  HÖâ  LŸœ  HL8ŞA¹   H+Ñèt4  …ÀtHƒd$  E3ÉE3À3Ò3Éè/ßÿÿLhœ  I‹ÕH‹Ïè½3  …ÀtHƒd$  E3ÉE3À3Ò3ÉèßÿÿLcÃI‹ÕH‹ÏMÀO‹DÆè3  …ÀtHƒd$  E3ÉE3À3Ò3ÉèÕŞÿÿHæ›  A¸  H‹Ïèü8  ëE¹ôÿÿÿÿ»‘  H‹øH…Àt2Hƒøÿt,HcÛHÛI‹LŞè%  I‹TŞHƒd$  LL$HL‹ÀH‹ÏÿY’  H‹\$@H‹|$PL‹l$XHƒÄ0A^ÃÌÌÌHƒì(¹   è‚:  ƒøt¹   ès:  …Àuƒ= Ä  u¹ü   è¤ıÿÿ¹ÿ   èšıÿÿHƒÄ(ÃÌ@SHƒì º   JèõàÿÿH‹ÈH‹Øè~÷ÿÿH‰'æ  H‰æ  H…ÛuCëHƒ# 3ÀHƒÄ [ÃÌÌH‰\$H‰t$H‰|$ATAUAVHƒì L‹ñèÃÆÿÿH‹ßå  è>÷ÿÿL‹àH‹Èå  è/÷ÿÿH‹ØI;Ä‚˜   H‹øI+üLoIƒı‚„   I‹Ìèó9  H‹ğI;ÅsTº   H;ÂHBĞHĞH;ĞrI‹Ìè¿àÿÿ3ÛH;Ãuë3ÛHV H;ÖrFI‹Ìè£àÿÿH;Ãt9HÁÿHøH‹ÈèöÿÿH‰Gå  I‹ÎèöÿÿH‰HKèƒöÿÿH‰$å  I‹Şë3ÛèÆÿÿH‹ÃH‹\$@H‹t$HH‹|$PHƒÄ A^A]A\ÃÌÌÌHƒì(èïşÿÿH÷ØÀ÷ØÿÈHƒÄ(ÃÌH‰\$WHƒì H—¥  H=¥  ëH‹H…ÀtÿĞHƒÃH;ßríH‹\$0HƒÄ _ÃH‰\$WHƒì Ho¥  H=h¥  ëH‹H…ÀtÿĞHƒÃH;ßríH‹\$0HƒÄ _ÃH‰\$WHƒì HÏ  ¿
+   H‹èªõÿÿH‰HƒÃHƒïuëH‹\$0HƒÄ _ÃÌÌH‹Á¹MZ  f9t3ÀÃHcH<HÈ3À9PE  uº  f9Q”ÀóÃÌLcA<E3ÉL‹ÒLÁA·@E·XJL E…Ût‹QL;Òr
+‹AÂL;ĞrAÿÁHƒÁ(E;Ërâ3ÀÃH‹ÁÃÌÌÌÌÌÌÌÌÌÌHƒì(L‹ÁLÿÿI‹Éèjÿÿÿ…Àt"M+ÁI‹ĞI‹ÉèˆÿÿÿH…Àt‹@$Áè÷Ğƒàë3ÀHƒÄ(ÃÌÌÌHƒì(è?öÿÿH‹ˆĞ   H…ÉtÿÑë è8  HƒÄ(ÃÌHƒì(HÑÿÿÿè˜ôÿÿH‰‰Ş  HƒÄ(ÃÂ  ÌH‰\$H‰l$H‰t$WHƒì H‹ò‹ùèbõÿÿE3ÛH‹ØI;Ã„Š  H‹ˆ    Lc	Î  H‹Ñ9:tI‹ÀHƒÂHÁàHÁH;ĞréI‹ÀHÁàHÁH;Ğs9:tI‹ÓI;Ó„C  L‹BM;Ã„6  IƒøuL‰ZA@üé%  IƒøuƒÈÿé  H‹«¨   H‰³¨   ‹Jƒù…è   LcuÍ  ‹sÍ  AÊM‹ÊD;Ñ}*IÁáH‹ƒ    AÿÂIƒÁM‰\ø‹GÍ  ‹EÍ  ÈD;Ñ|Ú:  À‹»°   uÇƒ°   ƒ   ëv:  ÀuÇƒ°      ëb:‘  ÀuÇƒ°   „   ëN:“  ÀuÇƒ°   …   ë::  ÀuÇƒ°   ‚   ë&:  ÀuÇƒ°   †   ë:’  Àu
+Çƒ°   Š   ‹“°   ¹   AÿĞ‰»°   ëL‰ZAÿĞH‰«¨   éãşÿÿ3ÀH‹\$0H‹l$8H‹t$@HƒÄ _ÃÌÌH‰±Ü  H‰²Ü  H‰³Ü  H‰´Ü  ÃÌÌÌH‹¡Ü  é òÿÿH‰\$H‰t$WATAUAVAWHƒì@‹Ù3ÿ‰|$p3ö‹Ñƒê„	  ƒê„¢   ƒê„€   ƒê„   ƒê„‡   ƒêtMƒêt,ƒút_è ÚÿÿÇ    H!t$ E3ÉE3À3Ò3Éè¶ÙÿÿƒÈÿéÑ  L%Ü  H‹ Ü  ¿   ‰|$péª   L%ûÛ  H‹ôÛ  ¿   ‰|$pé   L%×Û  H‹ĞÛ  ¿   ‰|$pëuè¨òÿÿH‹ğH…ÀuƒÈÿék  H‹    H‹ÊLcKË  9YtHƒÁI‹ÀHÁàHÂH;ÈrèI‹ÀHÁàHÂH;Ès9Yt3ÉLaM‹,$ëL%PÛ  H‹IÛ  ¿   ‰|$pèOñÿÿL‹èIƒıu3Àéö   M…íu
+AMèyÃÿÿÌ…ÿt3ÉèÕàÿÿƒûtƒûtƒûtL‹|$8D‹t$pë1L‹¾¨   L‰|$8Hƒ¦¨    ƒûuD‹¶°   Ç†°   Œ   ëD‹t$pƒûu9‹iÊ  ‹Ñ‰L$0‹aÊ  È;Ñ}*HcÊHÉH‹†    HƒdÈ ÿÂ‰T$0‹8Ê  ëÓè‰ğÿÿI‰$…ÿt3Éè6ßÿÿ¿   ;ßu‹–°   ‹ÏAÿÕë‹ËAÿÕ;ßt
+ƒûtƒûuL‰¾¨   ;ßuD‰¶°   3ÀL\$@I‹[8I‹s@I‹ãA_A^A]A\_ÃÌÌÌH‰9Ú  ÃH‰AÚ  ÃH‰AÚ  ÃHƒì8ÿfŠ  D‹Ø‰D$ ë=  Àu¹   ÿ#Š  E3ÛD‰\$ A‹ÃHƒÄ8ÃÌÌÌH‰	Ú  Ã@SHƒì H‹ÙH‹øÙ  è¿ïÿÿH…ÀtH‹ËÿĞ…Àt¸   ë3ÀHƒÄ [ÃÌÌHƒì(H‹8csmàu+ƒxu%‹@ = “t=!“t="“t= @™uè‡úÿÿÌ3ÀHƒÄ(ÃÌÌÌHƒì(H±ÿÿÿÿ÷ˆ  3ÀHƒÄ(ÃH‰\$H‰l$H‰t$WHƒì0ƒ=Íİ   uèZëÿÿH‹·Í  3ÿH…ÛuƒÈÿéÉ   <=tÿÇH‹Ëèú  H\Š„ÀuçGº   HcÈè;ØÿÿH‹øH‰5Í  H…ÀtÀH‹iÍ  €; teH‹Ëè¼  €;=ptCHcîº   H‹Íè ØÿÿH‰H…ÀtrL‹ÃH‹ÕH‹Èè+  …ÀtHƒd$  E3ÉE3À3Ò3ÉèåÔÿÿHƒÇHcÆHØ€; u¢H‹ÿÌ  H‹ËèGÙÿÿHƒ%ïÌ   Hƒ' ÇÑÜ     3ÀH‹\$@H‹l$HH‹t$PHƒÄ0_ÃH‹ƒÌ  èÙÿÿHƒ%vÌ   éÿÿÿÌH‹ÄH‰XH‰hH‰pH‰x ATAUAVHƒì L‹l$`M‹ñI‹øAƒe  L‹âH‹ÙAÇ   H…ÒtL‰IƒÄ3í€;"u3À…í@¶"”ÀHÿÃ‹èë9AÿE H…ÿtŠˆHÿÇ¶3HÿÃ‹Îè)àÿÿ…ÀtAÿE H…ÿtŠˆHÿÇHÿÃ@„öt…íu­@€ş t@€ş	u¡H…ÿt	ÆGÿ ëHÿË3ö€; „ã   €; t€;	uHÿÃëñ€; „Ë   M…ätI‰<$IƒÄAÿº   3ÉëHÿÃÿÁ€;\tö€;"u6„Êu…ötHC€8"uH‹Øë3À3Ò…ö”À‹ğÑéëÿÉH…ÿtÆ\HÿÇAÿE …ÉuëŠ„ÀtO…öu< tG<	tC…Òt7¾ÈèLßÿÿH…ÿt…ÀtŠHÿÃˆHÿÇAÿE ŠˆHÿÇë…ÀtHÿÃAÿE AÿE HÿÃéYÿÿÿH…ÿtÆ HÿÇAÿE éÿÿÿM…ätIƒ$$ AÿH‹\$@H‹l$HH‹t$PH‹|$XHƒÄ A^A]A\ÃÌH‰\$H‰t$ WHƒì0ƒ=ÒÚ   uè_èÿÿH=\Ö  A¸  3ÉH‹×ÆN×   ÿ,…  H‹…Ú  H‰=vÊ  H…Ût€; uH‹ßHD$HLL$@E3À3ÒH‹ËH‰D$ è½ıÿÿHct$@H¹ÿÿÿÿÿÿÿH;ñs\HcL$HHƒùÿsQHñH;ÑrHH‹ÊèÔÿÿH‹øH…Àt8LğHD$HLL$@H‹×H‹ËH‰D$ ègıÿÿD‹\$@H‰=»É  AÿË3ÀD‰«É  ëƒÈÿH‹\$PH‹t$XHƒÄ0_ÃÌÌH‹ÄH‰XH‰hH‰pH‰x ATHƒì@‹qÖ  E3äI‹ÜAt$A;Ìu2ÿ›…  H‹ØI;ÄtÇIÖ     ë!ÿÑ„  ‹;Ö  ƒøxDÎ‰/Ö  ƒù…º   I;Üuÿ[…  H‹ØI;Äu3Àé  H‹ûfD9#tHşfD9'u÷HşfD9'uîL‰d$8L‰d$0H+ûHÑÿL‹Ã3ÒDO

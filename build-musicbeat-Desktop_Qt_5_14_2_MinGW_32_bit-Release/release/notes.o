@@ -1,0 +1,57 @@
+ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+# PERFORMANCE OF THIS SOFTWARE.
+
+__date__    = "2018-09-09"
+__version__ = '0.46'
+__author__  = "Philippe Lagadec"
+
+__all__ = ['isOleFile', 'OleFileIO', 'OleMetadata', 'enable_logging',
+           'MAGIC', 'STGTY_EMPTY', 'KEEP_UNICODE_NAMES',
+           'STGTY_STREAM', 'STGTY_STORAGE', 'STGTY_ROOT', 'STGTY_PROPERTY',
+           'STGTY_LOCKBYTES', 'MINIMAL_OLEFILE_SIZE',
+           'DEFECT_UNSURE', 'DEFECT_POTENTIAL', 'DEFECT_INCORRECT',
+           'DEFECT_FATAL', 'DEFAULT_PATH_ENCODING',
+           'MAXREGSECT', 'DIFSECT', 'FATSECT', 'ENDOFCHAIN', 'FREESECT',
+           'MAXREGSID', 'NOSTREAM', 'UNKNOWN_SIZE', 'WORD_CLSID'
+]
+
+import io
+import sys
+import struct, array, os.path, datetime, logging
+
+#=== COMPATIBILITY WORKAROUNDS ================================================
+
+# For Python 3.x, need to redefine long as int:
+if str is not bytes:
+    long = int
+
+# Need to make sure we use xrange both on Python 2 and 3.x:
+try:
+    # on Python 2 we need xrange:
+    iterrange = xrange
+except:
+    # no xrange, for Python 3 it was renamed as range:
+    iterrange = range
+
+#[PL] workaround to fix an issue with array item size on 64 bits systems:
+if array.array('L').itemsize == 4:
+    # on 32 bits platforms, long integers in an array are 32 bits:
+    UINT32 = 'L'
+elif array.array('I').itemsize == 4:
+    # on 64 bits platforms, integers in an array are 32 bits:
+    UINT32 = 'I'
+elif array.array('i').itemsize == 4:
+    # On 64 bit Jython, signed integers ('i') are the only way to store our 32
+    # bit values in an array in a *somewhat* reasonable way, as the otherwise
+    # perfectly suited 'H' (unsigned int, 32 bits) results in a completely
+    # unusable behaviour. This is most likely caused by the fact that Java
+    # doesn't have unsigned values, and thus Jython's "array" implementation,
+    # which is based on "jarray", doesn't have them either.
+    # NOTE: to trick Jython into converting the values it would normally
+    # interpret as "signed" into "unsigned", a binary-and operation with
+    # 0xFFFFFFFF can be used. This way it is possible to use the same comparing
+    # operations on all platforms / implementations. The corresponding code
+    # lines are flagged with a 'JYTHON-WORKAROUND' tag below.
+    UINT32 = 'i'
+else:
+    raise ValueError('Need to fix a bug with 32 bit array

@@ -1,0 +1,787 @@
+df12c2672d086d4b4e15515aaba654a45855f7c4",
+      "size_in_bytes": 1023
+    },
+    {
+      "_path": "Lib/ctypes/test/test_init.py",
+      "path_type": "hardlink",
+      "sha256": "1a23fe2e684f4fca33991b0b65e02a5959d045b59906bf3e2557a7f777f1def3",
+      "size_in_bytes": 1039
+    },
+    {
+      "_path": "Lib/ctypes/test/test_internals.py",
+      "path_type": "hardlink",
+      "sha256": "dc891b5d617d2a261527acfc1749ff8c402601f8bdc90f486ab6bfed45a0371f",
+      "size_in_bytes": 2631
+    },
+    {
+      "_path": "Lib/ctypes/test/test_keeprefs.py",
+      "path_type": "hardlink",
+      "sha256": "af92ac3f3e352a910dc13d15370b6cf53199509d176cd39d969f0570cb211049",
+      "size_in_bytes": 4058
+    },
+    {
+      "_path": "Lib/ctypes/test/test_libc.py",
+      "path_type": "hardlink",
+      "sha256": "f2694dc3211773272d31fdd1f0c27bf31e09adf9a7fd9ac42e4264e5bc26b3b3",
+      "size_in_bytes": 1005
+    },
+    {
+      "_path": "Lib/ctypes/test/test_loading.py",
+      "path_type": "hardlink",
+      "sha256": "ffd008b47c9db095ca8d04b4afc1020dc93b953ef8ab483c8adbc676d5d610e1",
+      "size_in_bytes": 7080
+    },
+    {
+      "_path": "Lib/ctypes/test/test_macholib.py",
+      "path_type": "hardlink",
+      "sha256": "d7d7ff2706a6d1b1a843f3cb1f01da118d6c3032cda122c6989d4566bdcea547",
+      "size_in_bytes": 2121
+    },
+    {
+      "_path": "Lib/ctypes/test/test_memfunctions.py",
+      "path_type": "hardlink",
+      "sha256": "a723bfe187ec350b1c8d3cf1f8e7df3ca83a274b513b472a1833df6adf0a5420",
+      "size_in_bytes": 3293
+    },
+    {
+      "_path": "Lib/ctypes/test/test_numbers.py",
+      "path_type": "hardlink",
+      "sha256": "f62fd040bd9b01160cc9f10851d4f876f7f9aabcdf96130786ab248ea1835d2c",
+      "size_in_bytes": 9526
+    },
+    {
+      "_path": "Lib/ctypes/test/test_objects.py",
+      "path_type": "hardlink",
+      "sha256": "b67b1cdcd568480e515eae06293d0d71dae3d2e4f0ad612cbe439673a84c164b",
+      "size_in_bytes": 1677
+    },
+    {
+      "_path": "Lib/ctypes/test/test_parameters.py",
+      "path_type": "hardlink",
+      "sha256": "b643d63921b91412a1000c87c75dcf66cfdabf52633241d5b86b51f4296326c1",
+      "size_in_bytes": 9570
+    },
+    {
+      "_path": "Lib/ctypes/test/test_pep3118.py",
+      "path_type": "hardlink",
+      "sha256": "d8e35b9aa00030159f5907c4e0db059fb5d6fe5fafb498d27942f9c7a6c697d4",
+      "size_in_bytes": 8516
+    },
+    {
+      "_path": "Lib/ctypes/test/test_pickling.py",
+      "path_type": "hardlink",
+      "sha256": "dac8e7f56da15fa162371b43c851d70844922c97c6d9908f5ad0fc3586aa4cd8",
+      "size_in_bytes": 2218
+    },
+    {
+      "_path": "Lib/ctypes/test/test_pointers.py",
+      "path_type": "hardlink",
+      "sha256": "a82abf64174a8a572271a3e85d7cf31317aff8036928d7503ee5c786ffbcd1fc",
+      "size_in_bytes": 7239
+    },
+    {
+      "_path": "Lib/ctypes/test/test_prototypes.py",
+      "path_type": "hardlink",
+      "sha256": "bfdfb53c8cbae9a464105c4a3f38389c7721c9d1fd0333103b86e7c8071c9db2",
+      "size_in_bytes": 6845
+    },
+    {
+      "_path": "Lib/ctypes/test/test_python_api.py",
+      "path_type": "hardlink",
+      "sha256": "24d22836c02592239b28a0c1627fa33d830fcf44b8a06b8ebf35b040192c0075",
+      "size_in_bytes": 2866
+    },
+    {
+      "_path": "Lib/ctypes/test/test_random_things.py",
+      "path_type": "hardlink",
+      "sha256": "0368da32f76a4c106cbeba3c92456947fbc68d1b012bc3762db1b5f9399e7be6",
+      "size_in_bytes": 2836
+    },
+    {
+      "_path": "Lib/ctypes/test/test_refcounts.py",
+      "path_type": "hardlink",
+      "sha256": "3bbde349f3e6413de32280d4e29d30273dadde1f9ee5bac32aa063e8a5a3670f",
+      "size_in_bytes": 2576
+    },
+    {
+      "_path": "Lib/ctypes/test/test_repr.py",
+      "path_type": "hardlink",
+      "sha256": "a89661e8555d05531985619fa54a16eccda0e15e50bc11dcc6ee9df9b3c590cd",
+      "size_in_bytes": 842
+    },
+    {
+      "_path": "Lib/ctypes/test/test_returnfuncptrs.py",
+      "path_type": "hardlink",
+      "sha256": "c2f3c65d439622b1f44ba6cb54a14bfb9bb9fec4a1ca47a930f067c307f32481",
+      "size_in_bytes": 2893
+    },
+    {
+      "_path": "Lib/ctypes/test/test_simplesubclasses.py",
+      "path_type": "hardlink",
+      "sha256": "a1f30fe454d29ec7d61e9aff7c02bca3072ab2dede632a98e0d68985b025d402",
+      "size_in_bytes": 1289
+    },
+    {
+      "_path": "Lib/ctypes/test/test_sizes.py",
+      "path_type": "hardlink",
+      "sha256": "ebebf011281a5c1fb7f76ccc40aad2da2aafdc96e6360e8c5f5e62d0c56d11bd",
+      "size_in_bytes": 804
+    },
+    {
+      "_path": "Lib/ctypes/test/test_slicing.py",
+      "path_type": "hardlink",
+      "sha256": "f743c7b22a0dc8b4927a6d6ddba218bbe5e954f0d9f7089fdc4e00d6378a1c2d",
+      "size_in_bytes": 6025
+    },
+    {
+      "_path": "Lib/ctypes/test/test_stringptr.py",
+      "path_type": "hardlink",
+      "sha256": "596225f326a36dec65447d4cb31ba7164160864f83d502b4046d4d12086b1109",
+      "size_in_bytes": 2536
+    },
+    {
+      "_path": "Lib/ctypes/test/test_strings.py",
+      "path_type": "hardlink",
+      "sha256": "d7d65444b140db8b2f2f415c8440e220e322ec865c974d9c74fa8ce03908bba0",
+      "size_in_bytes": 7303
+    },
+    {
+      "_path": "Lib/ctypes/test/test_struct_fields.py",
+      "path_type": "hardlink",
+      "sha256": "42e69f54ebd21bbad418f805c8bf79e2b5370f497b894bf4a0daee51ea758142",
+      "size_in_bytes": 2421
+    },
+    {
+      "_path": "Lib/ctypes/test/test_structures.py",
+      "path_type": "hardlink",
+      "sha256": "5a23c5a7b9e835b54699d6ea6b110b19798ba7727d970ab0288e2bfb2f99b166",
+      "size_in_bytes": 27204
+    },
+    {
+      "_path": "Lib/ctypes/test/test_unaligned_structures.py",
+      "path_type": "hardlink",
+      "sha256": "0c15a8e79b9fe5edfb0df4be28827dc628a32a9dc948297e16dbf183583bd453",
+      "size_in_bytes": 1140
+    },
+    {
+      "_path": "Lib/ctypes/test/test_unicode.py",
+      "path_type": "hardlink",
+      "sha256": "0d385d2cc2fa54d7063531169cc49c4105aa1463e54e298afcbc2f9ddb8f2675",
+      "size_in_bytes": 1997
+    },
+    {
+      "_path": "Lib/ctypes/test/test_values.py",
+      "path_type": "hardlink",
+      "sha256": "6fcefcebae5a1b1d9d32f60b132a5a29da8fedbbb142e6fe9bb00f99dd1f3d79",
+      "size_in_bytes": 3871
+    },
+    {
+      "_path": "Lib/ctypes/test/test_varsize_struct.py",
+      "path_type": "hardlink",
+      "sha256": "c7d463aa0ee94baa8aab42a1e7c53a9b5547110fffd1a85c30acc0a952bcb216",
+      "size_in_bytes": 1842
+    },
+    {
+      "_path": "Lib/ctypes/test/test_win32.py",
+      "path_type": "hardlink",
+      "sha256": "05490ad5f19e2919a1dedda2a7ddb4a77389cf78f56293c97fc1343724690ac2",
+      "size_in_bytes": 5027
+    },
+    {
+      "_path": "Lib/ctypes/test/test_wintypes.py",
+      "path_type": "hardlink",
+      "sha256": "d535399195f0b6383004f5dfd3bc309b4ff2f249f6cb99080189f7d7e55c4ef5",
+      "size_in_bytes": 1397
+    },
+    {
+      "_path": "Lib/ctypes/util.py",
+      "path_type": "hardlink",
+      "sha256": "e3542c7da26c5cda95ed4ad768a4375dbf96d2d40a4761f24b9b169a4ca2032f",
+      "size_in_bytes": 14832
+    },
+    {
+      "_path": "Lib/ctypes/wintypes.py",
+      "path_type": "hardlink",
+      "sha256": "c8f29e6cb1b05223e423391242f671381546130acae1fd7baafb65ba849f2a00",
+      "size_in_bytes": 5628
+    },
+    {
+      "_path": "Lib/curses/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "9551c899aafccce841851a83f54451ccbb8d65e158c47e365e8d8f88f214200f",
+      "size_in_bytes": 3800
+    },
+    {
+      "_path": "Lib/curses/__pycache__/__init__.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "ba4ac70886f7aa43daeaec110c15f4e933e0a4f0e3041faacde544a4498b88bc",
+      "size_in_bytes": 2125
+    },
+    {
+      "_path": "Lib/curses/__pycache__/ascii.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "43593468455a7277bc00b140a21c667fc453e31a7ca430052b774e8bfd828c12",
+      "size_in_bytes": 3942
+    },
+    {
+      "_path": "Lib/curses/__pycache__/has_key.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "759117249aff5151ff33574e5044f22ea48508215a27f01b5b106df6f6cd4f69",
+      "size_in_bytes": 4540
+    },
+    {
+      "_path": "Lib/curses/__pycache__/panel.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "6b01ce922aae0d9c672eed9bbdc8682d20eee69b9effde4ed580e492aed28ad8",
+      "size_in_bytes": 208
+    },
+    {
+      "_path": "Lib/curses/__pycache__/textpad.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "193673bc99887d40876fa01626da6a35f9e6e7aa9fe2d96361c762f7763ee8d3",
+      "size_in_bytes": 5892
+    },
+    {
+      "_path": "Lib/curses/ascii.py",
+      "path_type": "hardlink",
+      "sha256": "cf0137c2143c5e5bea2ccd25bfc61f3a274c5d8fdab3bc4c2c7329412ce7b656",
+      "size_in_bytes": 2547
+    },
+    {
+      "_path": "Lib/curses/has_key.py",
+      "path_type": "hardlink",
+      "sha256": "15a052812d9ae80124bb25b3f5b9ffae38e2b03073774e163abf3d773140cfb3",
+      "size_in_bytes": 5634
+    },
+    {
+      "_path": "Lib/curses/panel.py",
+      "path_type": "hardlink",
+      "sha256": "13ef404a30da1825a612ca3e453db88c305d45deef4441c4c9e2ef7ee0ef50c7",
+      "size_in_bytes": 87
+    },
+    {
+      "_path": "Lib/curses/textpad.py",
+      "path_type": "hardlink",
+      "sha256": "bbc4634b3396bb6aa89f186206b9e236047e443ffd727116f45b537f4dce0759",
+      "size_in_bytes": 7657
+    },
+    {
+      "_path": "Lib/dataclasses.py",
+      "path_type": "hardlink",
+      "sha256": "0e3819791cb852aadbefc3bfd026c9bf27269ab642d71ee52f50ed73a603b31c",
+      "size_in_bytes": 49973
+    },
+    {
+      "_path": "Lib/datetime.py",
+      "path_type": "hardlink",
+      "sha256": "05c2c329698f60b68eb213670b88c112b0a18be97a7d61b9835c54d18e3617d2",
+      "size_in_bytes": 88287
+    },
+    {
+      "_path": "Lib/dbm/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "930cdedcd5887bdf70477c541d73b54797c232d90dce149ab5b135331f04ec16",
+      "size_in_bytes": 5839
+    },
+    {
+      "_path": "Lib/dbm/__pycache__/__init__.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "f75bd5138cd0a3f4e903173f725fda455ecb0624ccf0cd28fd2e55d0b5e7c6ec",
+      "size_in_bytes": 4177
+    },
+    {
+      "_path": "Lib/dbm/__pycache__/dumb.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "f56c6e3f3abd6e3c52cba2ad9ddc3b9350cf39922e87adfb0fc9fc8517f4d6bd",
+      "size_in_bytes": 7758
+    },
+    {
+      "_path": "Lib/dbm/__pycache__/gnu.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "382bd2c54241375376bd2e6eec083baa4614f131dce27343561d05e267e43db8",
+      "size_in_bytes": 188
+    },
+    {
+      "_path": "Lib/dbm/__pycache__/ndbm.cpython-38.pyc",
+      "path_type": "hardlink",
+      "sha256": "6996e6a311243b47d01ef8b3e4c55f13b1dca235c183675c566746e0350ba26e",
+      "size_in_bytes": 187
+    },
+    {
+      "_path": "Lib/dbm/dumb.py",
+      "path_type": "hardlink",
+      "sha256": "eec69824f4a1cfa02e23766eecc48339b09c5a08b0099063d3f0311c252e9700",
+      "size_in_bytes": 11536
+    },
+    {
+      "_path": "Lib/dbm/gnu.py",
+      "path_type": "hardlink",
+      "sha256": "36cd4904f50e00c4df4ad9d450b3970e150957425f47c00cf979ba73eff49778",
+      "size_in_bytes": 72
+    },
+    {
+      "_path": "Lib/dbm/ndbm.py",
+      "path_type": "hardlink",
+      "sha256": "1bcc2d9b2fad1901f3421a174eeecb5b8ccc6763283b87bbe0705b404c71904b",
+      "size_in_bytes": 70
+    },
+    {
+      "_path": "Lib/decimal.py",
+      "path_type": "hardlink",
+      "sha256": "000c00bad31d126b054c6ec7f3e02b27c0f9a4d579f987d3c4f879cee1bacb81",
+      "size_in_bytes": 320
+    },
+    {
+      "_path": "Lib/difflib.py",
+      "path_type": "hardlink",
+      "sha256": "6889e659235773422a944335780fce472cc59dbdd0ccb861bf3b92d5c931ae42",
+      "size_in_bytes": 84058
+    },
+    {
+      "_path": "Lib/dis.py",
+      "path_type": "hardlink",
+      "sha256": "12f8cf82811f5dda498fa3c4852af458d1a4915ccf779b4badad08407b8e15e9",
+      "size_in_bytes": 20570
+    },
+    {
+      "_path": "Lib/distutils/README",
+      "path_type": "hardlink",
+      "sha256": "a923686f9f3066ea97530e8cd91cd37a74a83441a591beda24b595aa177a570a",
+      "size_in_bytes# -*- coding: utf-8 -*-
+
+#######################################################################
+#
+# License: BSD
+# Created: June 08, 2004
+# Author: Francesc Alted - faltet@pytables.com
+#
+# $Id$
+#
+########################################################################
+
+"""Here is defined the Index class."""
+
+
+import math
+import operator
+import os
+import os.path
+import sys
+import tempfile
+import warnings
+
+from time import time, perf_counter
+
+import numpy
+
+from .idxutils import (calc_chunksize, calcoptlevels,
+                             get_reduction_level, nextafter, inftype)
+
+from . import indexesextension
+from .node import NotLoggedMixin
+from .atom import UIntAtom, Atom
+from .earray import EArray
+from .carray import CArray
+from .leaf import Filters
+from .indexes import CacheArray, LastRowArray, IndexArray
+from .group import Group
+from .path import join_path
+from .exceptions import PerformanceWarning
+from .utils import is_idx, idx2long, lazyattr
+from .utilsextension import (nan_aware_gt, nan_aware_ge,
+                                   nan_aware_lt, nan_aware_le,
+                                   bisect_left, bisect_right)
+from .lrucacheextension import ObjectCache
+
+
+
+# default version for INDEX objects
+# obversion = "1.0"    # Version of indexes in PyTables 1.x series
+# obversion = "2.0"    # Version of indexes in PyTables Pro 2.0 series
+obversion = "2.1"     # Version of indexes in PyTables Pro 2.1 and up series,
+                      # including the join 2.3 Std + Pro version
+
+
+debug = False
+# debug = True  # Uncomment this for printing sizes purposes
+profile = False
+# profile = True  # Uncomment for profiling
+if profile:
+    from .utils import show_stats
+
+
+# The default method for sorting
+# defsort = "quicksort"
+# Changing to mergesort to fix #441
+defsort = "mergesort"
+
+# Default policy for automatically updating indexes after a table
+# append operation, or automatically reindexing after an
+# index-invalidating operation like removing or modifying table rows.
+default_auto_index = True
+# Keep in sync with ``Table.autoindex`` docstring.
+
+# Default filters used to compress indexes.  This is quite fast and
+# compression is pretty good.
+# Remember to keep these defaults in sync with the docstrings and UG.
+default_index_filters = Filters(complevel=1, complib='zlib',
+                                shuffle=True, fletcher32=False)
+
+# Deprecated API
+defaultAutoIndex = default_auto_index
+defaultIndexFilters = default_index_filters
+
+# The list of types for which an optimised search in cython and C has
+# been implemented. Always add here the name of a new optimised type.
+opt_search_types = ("int8", "int16", "int32", "int64",
+                    "uint8", "uint16", "uint32", "uint64",
+                    "float32", "float64")
+
+# The upper limit for uint32 ints
+max32 = 2**32
+
+
+def _table_column_pathname_of_index(indexpathname):
+    names = indexpathname.split("/")
+    for i, name in enumerate(names):
+        if name.startswith('_i_'):
+            break
+    tablepathname = "/".join(names[:i]) + "/" + name[3:]
+    colpathname = "/".join(names[i + 1:])
+    return (tablepathname, colpathname)
+
+
+class Index(NotLoggedMixin, Group, indexesextension.Index):
+    """Represents the index of a column in a table.
+
+    This class is used to keep the indexing information for columns in a Table
+    dataset (see :ref:`TableClassDescr`). It is actually a descendant of the
+    Group class (see :ref:`GroupClassDescr`), with some added functionality. An
+    Index is always associated with one and only one column in the table.
+
+    .. note::
+
+        This class is mainly intended for internal use, but some of its
+        documented attributes and methods may be interesting for the
+        programmer.
+
+    Parameters
+    ----------
+    parentnode
+        The parent :class:`Group` object.
+
+        .. versionchanged:: 3.0
+           Renamed from *parentNode* to *parentnode*.
+
+    name : str
+        The name of this node in its parent group.
+    atom : Atom
+        An Atom object representing the shape and type of the atomic objects to
+        be saved. Only scalar atoms are supported.
+    title
+        Sets a TITLE attribute of the Index entity.
+    kind
+        The desired kind for this index.  The 'full' kind specifies a complete
+        track of the row position (64-bit), while the 'medium', 'light' or
+        'ultralight' kinds only specify in which chunk the row is (using
+        32-bit, 16-bit and 8-bit respectively).
+    optlevel
+        The desired optimization level for this index.
+    filters : Filters
+        An instance of the Filters class that provides information about the
+        desired I/O filters to be applied during the life of this object.
+    tmp_dir
+        The directory for the temporary files.
+    expectedrows
+        Represents an user estimate about the number of row slices that will be
+        added to the growable dimension in the IndexArray object.
+    byteorder
+        The byteorder of the index datasets *on-disk*.
+    blocksizes
+        The four main sizes of the compound blocks in index datasets (a low
+        level parameter).
+
+    """
+
+    _c_classid = 'INDEX'
+
+
+    @property
+    def kind(self):
+        "The kind of this index."
+        return {1: 'ultralight', 2: 'light',
+                4: 'medium', 8: 'full'}[self.indsize]
+
+    @property
+    def filters(self):
+        """Filter properties for this index - see Filters in
+        :ref:`FiltersClassDescr`."""
+        return self._v_filters
+
+    @property
+    def dirty(self):
+       """Whether the index is dirty or not.
+       Dirty indexes are out of sync with column data, so they exist but they
+       are not usable.
+       """
+
+       # If there is no ``DIRTY`` attribute, index should be clean.
+       return getattr(self._v_attrs, 'DIRTY', False)
+
+    @dirty.setter
+    def dirty(self, dirty):
+        wasdirty, isdirty = self.dirty, bool(dirty)
+        self._v_attrs.DIRTY = dirty
+        # If an *actual* change in dirtiness happens,
+        # notify the condition cache by setting or removing a nail.
+        conditioncache = self.table._condition_cache
+        if not wasdirty and isdirty:
+            conditioncache.nail()
+        if wasdirty and not isdirty:
+            conditioncache.unnail()
+
+    @property
+    def column(self):
+        """The Column (see :ref:`ColumnClassDescr`) instance for the indexed
+        column."""
+
+        tablepath, columnpath = _table_column_pathname_of_index(
+            self._v_pathname)
+        table = self._v_file._get_node(tablepath)
+        column = table.cols._g_col(columnpath)
+        return column
+
+    @property
+    def table(self):
+        """Accessor for the `Table` object of this index."""
+        tablepath, columnpath = _table_column_pathname_of_index(self._v_pathname)
+        table = self._v_file._get_node(tablepath)
+        return table
+
+    @property
+    def nblockssuperblock(self):
+        "The number of blocks in a superblock."
+        return self.superblocksize // self.blocksize
+
+    @property
+    def nslicesblock(self):
+        "The number of slices in a block."
+        return self.blocksize // self.slicesize
+
+    @property
+    def nchunkslice(self):
+        "The number of chunks in a slice."
+        return self.slicesize // self.chunksize
+
+    @property
+    def nsuperblocks(self):
+        "The total number of superblocks in index."
+        # Last row should not be considered as a superblock
+        nelements = self.nelements - self.nelementsILR
+        nblocks = nelements // self.superblocksize
+        if nelements % self.blocksize > 0:
+            nblocks += 1
+        return nblocks
+
+    @property
+    def nblocks(self):
+        "The total number of blocks in index."
+        # Last row should not be considered as a block
+        nelements = self.nelements - self.nelementsILR
+        nblocks = nelements // self.blocksize
+        if nelements % self.blocksize > 0:
+            nblocks += 1
+        return nblocks
+
+    @property
+    def nslices(self):
+        "The number of complete slices in index."
+        return self.nelements // self.slicesize
+
+    @property
+    def nchunks(self):
+        "The number of complete chunks in index."
+        return self.nelements // self.chunksize
+
+    @property
+    def shape(self):
+        "The shape of this index (in slices and elements)."
+        return (self.nrows, self.slicesize)
+
+    @property
+    def temp_required(self):
+        "Whether a temporary file for indexes is required or not."
+        return self.indsize > 1 and self.optlevel > 0 and self.table.nrows > self.slicesize
+
+    @property
+    def want_complete_sort(self):
+        "Whether we should try to build a completely sorted index or not."
+        return self.indsize == 8 and self.optlevel == 9
+
+    @property
+    def is_csi(self):
+        """Whether the index is completely sorted or not.
+
+        .. versionchanged:: 3.0
+           The *is_CSI* property has been renamed into *is_csi*.
+
+        """
+
+        if self.nelements == 0:
+            # An index with 0 indexed elements is not a CSI one (by definition)
+            return False
+        if self.indsize < 8:
+            # An index that is not full cannot be completely sorted
+            return False
+        # Try with the 'is_csi' attribute
+        if 'is_csi' in self._v_attrs:
+            return self._v_attrs.is_csi
+        # If not, then compute the overlaps manually
+        # (the attribute 'is_csi' will be set there)
+        self.compute_overlaps(self, None, False)
+        return self.noverlaps == 0
+
+    @lazyattr
+    def nrowsinchunk(self):
+        """The number of rows that fits in a *table* chunk."""
+
+        return self.table.chunkshape[0]
+
+    @lazyattr
+    def lbucket(self):
+        """Return the length of a bucket based index type."""
+
+        # Avoid to set a too large lbucket size (mainly useful for tests)
+        lbucket = min(self.nrowsinchunk, self.chunksize)
+        if self.indsize == 1:
+            # For ultra-light, we will never have to keep track of a
+            # bucket outside of a slice.
+            maxnb = 2**8
+            if self.slicesize > maxnb * lbucket:
+                lbucket = int(math.ceil(float(self.slicesize) / maxnb))
+        elif self.indsize == 2:
+            # For light, we will never have to keep track of a
+            # bucket outside of a block.
+            maxnb = 2**16
+            if self.blocksize > maxnb * lbucket:
+                lbucket = int(math.ceil(float(self.blocksize) / maxnb))
+        else:
+            # For medium and full indexes there should not be a need to
+            # increase lbucket
+            pass
+        return lbucket
+
+    def __init__(self, parentnode, name,
+                 atom=None, title="",
+                 kind=None,
+                 optlevel=None,
+                 filters=None,
+                 tmp_dir=None,
+                 expectedrows=0,
+                 byteorder=None,
+                 blocksizes=None,
+                 new=True):
+
+        self._v_version = None
+        """The object version of this index."""
+        self.optlevel = optlevel
+        """The optimization level for this index."""
+        self.tmp_dir = tmp_dir
+        """The directory for the temporary files."""
+        self.expectedrows = expectedrows
+        """The expected number of items of index arrays."""
+        if byteorder in ["little", "big"]:
+            self.byteorder = byteorder
+        else:
+            self.byteorder = sys.byteorder
+        """The byteorder of the index datasets."""
+        if atom is not None:
+            self.dtype = atom.dtype.base
+            self.type = atom.type
+            """The datatypes to be stored by the sorted index array."""
+            ############### Important note ###########################
+            # The datatypes saved as index values are NumPy native
+            # types, so we get rid of type metainfo like Time* or Enum*
+            # that belongs to HDF5 types (actually, this metainfo is
+            # not needed for sorting and looking-up purposes).
+            ##########################################################
+            indsize = {
+                'ultralight': 1, 'light': 2, 'medium': 4, 'full': 8}[kind]
+            assert indsize in (1, 2, 4, 8), "indsize should be 1, 2, 4 or 8!"
+            self.indsize = indsize
+            """The itemsize for the indices part of the index."""
+
+        self.nrows = None
+        """The total number of slices in the index."""
+        self.nelements = None
+        """The number of currently indexed rows for this column."""
+        self.blocksizes = blocksizes
+        """The four main sizes of the compound blocks (if specified)."""
+        self.dirtycache = True
+        """Dirty cache (for ranges, bounds & sorted) flag."""
+        self.superblocksize = None
+        """Size of the superblock for this index."""
+        self.blocksize = None
+        """Size of the block for this index."""
+        self.slicesize = None
+        """Size of the slice for this index."""
+        self.chunksize = None
+        """Size of the chunk for this index."""
+        self.tmpfilename = None
+        """Filename for temporary bounds."""
+        self.opt_search_types = opt_search_types
+        """The types for which and optimized search has been implemented."""
+        self.noverlaps = -1
+        """The number of overlaps in an index.  0 means a completely
+        sorted index. -1 means that this number is not computed yet."""
+        self.tprof = 0
+        """Time counter for benchmarking purposes."""
+
+        from .file import open_file
+        self._openFile = open_file
+        """The `open_file()` function, to avoid a circular import."""
+
+        super(Index, self).__init__(parentnode, name, title, new, filters)
+
+    def _g_post_init_hook(self):
+        if self._v_new:
+            # The version for newly created indexes
+            self._v_version = obversion
+        super(Index, self)._g_post_init_hook()
+
+        # Index arrays must only be created for new indexes
+        if not self._v_new:
+            idxversion = self._v_version
+            # Set-up some variables from info on disk and return
+            attrs = self._v_attrs
+            # Coerce NumPy scalars to Python scalars in order
+            # to avoid undesired upcasting operations.
+            self.superblocksize = int(attrs.superblocksize)
+            self.blocksize = int(attrs.blocksize)
+            self.slicesize = int(attrs.slicesize)
+            self.chunksize = int(attrs.chunksize)
+            self.blocksizes = (self.superblocksize, self.blocksize,
+                               self.slicesize, self.chunksize)
+            self.optlevel = int(attrs.optlevel)
+            sorted = self.sorted
+            indices = self.indices
+            self.dtype = sorted.atom.dtype
+            self.type = sorted.atom.type
+            self.indsize = indices.atom.itemsize
+            # Some sanity checks for slicesize, chunksize and indsize
+            assert self.slicesize == indices.shape[1], "Wrong slicesize"
+            assert self.chunksize == indices._v_chunkshape[
+                1], "Wrong chunksize"
+            assert self.indsize in (1, 2, 4, 8), "Wrong indices itemsize"
+            if idxversion > "2.0":
+                self.reduction = int(attrs.reduction)
+                nelementsSLR = int(self.sortedLR.attrs.nelements)
+                nelementsILR = int(self.indicesLR.attrs.nelements)
+            else:
+                self.reduction = 1
+                nelementsILR = self.indicesLR[-1]
+                nelementsSLR = nelementsILR
+            self.nrows = sorted.nrows
+            self.nelements = self.nrows * self.slicesize + nelementsILR
+            self.nelementsSLR = nelementsSLR
+            self.nelementsIL
